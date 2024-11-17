@@ -22,9 +22,12 @@ function resetGrid(gridSize = 16) {
 
         for (let j = 0; j < gridSize; j++) {
             const newDiv = document.createElement("div");
-            newDiv.setAttribute("style", 
-                "flex: 1; aspect-ratio: 1/1;");
-            newDiv.addEventListener("mouseenter", (e) => e.target.style["background-color"] = '#' + Math.floor(Math.random()*16777215).toString(16));
+            newDiv.setAttribute("style", "flex: 1; aspect-ratio: 1/1; opacity: 0");
+            newDiv.addEventListener("mouseenter", (e) => {
+                if (+getComputedStyle(e.target).getPropertyValue('opacity') === 0) 
+                    e.target.style["background-color"] = '#' + Math.floor(Math.random()*16777215).toString(16);
+                e.target.style["opacity"] = +getComputedStyle(e.target).getPropertyValue('opacity') + 0.1;
+            });
             newLine.appendChild(newDiv);
         }
     }
